@@ -74,12 +74,13 @@ fi
 
 cd $BUILD_DIR
 echo "-----> Bootstrap buildout"
-curl -o bootstrap.py L "${BOOTSTRAP_PY_URL}"
+curl -OL $BOOTSTRAP_PY_URL
 python bootstrap.py -c $BUILDOUT_CFG
 echo "-----> Run bin/buildout -c ${BUILDOUT_CFG} ${BUILDOUT_VERBOSITY}"
 bin/buildout -c $BUILDOUT_CFG $BUILDOUT_VERBOSITY
 
 echo "-----> Fix paths in zope.conf"
+ls
 sed "s|${BUILD_DIR}|/app|" parts/instance/etc/zope.conf > zope.conf.new
 mv zope.conf.new parts/instance/etc/zope.conf
 
